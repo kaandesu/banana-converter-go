@@ -1,38 +1,75 @@
-# banana-converter-go
+<!-- PROJECT LOGO -->
 
-[![GoTemplate](https://img.shields.io/badge/go/template-black?logo=go)](https://github.com/SchwarzIT/go-template)
+<div align="center">
+  <a href="https://github.com/kaandesu/banana-converter-go">
+    <img src="./logo.webp" alt="Banana Converter Logo" width="140">
+  </a>
 
-Convert lengths and distances to bananas or viceversa.
+  <br>
 
-The project uses `make` to make your life easier. If you're not familiar with Makefiles you can take a look at [this quickstart guide](https://makefiletutorial.com).
+  <!-- Title -->
+  <h3 align="center">Banana Converter</h3>
 
-Whenever you need help regarding the available actions, just use the following command.
+  <!-- DESCRIPTION -->
+  <p align="center">
+    Convert lengths to and from bananas with this simple Golang library. Supports various units for convenient conversions. 
+    <br />
+    Simple, blazingly fast and free! 🍌
+    <br />        
+    <br />
+    <a href="https://github.com/kaandesu/banana-converter-go/issues">Report Bug</a>
+    <a href="https://github.com/kaandesu/banana-converter-go/issues">Request Feature</a>
+  </p>
+</div>
 
-```bash
-make help
-```
-
-## Setup
-
-To get your setup up and running the only thing you have to do is
-
-```bash
-make all
-```
-
-This will initialize a git repo, download the dependencies in the latest versions and install all needed tools.
-If needed code generation will be triggered in this target as well.
-
-## Test & lint
-
-Run linting
+### Install
 
 ```bash
-make lint
+go get github.com/kaandesu/banana-converter-go
 ```
 
-Run tests
+### Usage
 
-```bash
-make test
+```go
+package main
+
+import (
+	"fmt"
+	"github.com/kaandesu/banana-converter-go/converter"
+)
+
+func main() {
+	result, err := converter.Convert(1.5, "banana", "cm")
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Printf("Result: %.2f\n", result)
+	}
+}
 ```
+
+## Contributing
+
+Contributions to the project is highly appreciated. If you have any suggestions/questions/requests please consider [opening an issue](https://github.com/kaandesu/banana-converter-go/issues/new). If you want to contribute to the project, fixing an open issue is greatly recommended and appreciated.
+
+### Roadmap
+
+- More banana options for **i18n** support:
+  - [ ] Cavendish Banana.
+  - [ ] Pisang Raja.
+  - [ ] Red Banana.
+  - [ ] Lady Finger Banana.
+  - [ ] Blue Java Banana.
+  - [ ] Plantain.
+  - [ ] Manzano Banana.
+  - [ ] Burro Banana.
+  - [ ] Çikita
+
+* [ ] Weight converter.
+* [ ] Detailed documentation.
+
+### Contact
+
+| Maintainer                              |
+| --------------------------------------- |
+| [kaandesu](https://github.com/kaandesu) |
