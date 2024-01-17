@@ -1,35 +1,44 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"os"
-
-	"github.com/kaandesu/banana-converter-go/internal/log"
-	"go.uber.org/zap"
-
-	// This controls the maxprocs environment variable in container runtimes.
-	// see https://martin.baillie.id/wrote/gotchas-in-the-go-network-packages-defaults/#bonus-gomaxprocs-containers-and-the-cfs
-	_ "go.uber.org/automaxprocs"
 )
 
-func main() {
-	if err := run(); err != nil {
-		fmt.Fprintf(os.Stderr, "an error occurred: %s\n", err)
-		os.Exit(1)
-	}
+var conversions = map[string]float64{
+	"banana":    1,
+	"inch":      7.0,
+	"cm":        17.78,
+	"feet":      0.583,
+	"meter":     0.178,
+	"yard":      0.194,
+	"kilometer": 0.000178,
+	"mile":      0.00011,
 }
 
-func run() error {
-	logger, err := log.NewAtLevel(os.Getenv("LOG_LEVEL"))
-	if err != nil {
-		return err
+func convert(value float64, fromUnit string, toUnit string) (float64, error) {
+	fromConversion, fromExists := conversions[fromUnit]
+	toConversion, toExists := conversions[toUnit]
+
+	if !fromExists || !toExists {
+		return 0, errors.New("Invalid unit")
 	}
 
-	defer func() {
-		err = logger.Sync()
-	}()
+	lengthInBananas := value / fromConversion
+	result := lengthInBananas * toConversion
 
-	logger.Info("Hello world!", zap.String("location", "world"))
+	return result, nil
+}
 
-	return err
+func main() {
+	value := 10.0
+	fromUnit := "banana"
+	toUnit := "cm"
+
+	result, err := convert(value, fromUnit, toUnit)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Printf("%v %s is equal to %v %s\n", value, fromUnit, result, toUnit)
+	}
 }
