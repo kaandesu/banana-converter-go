@@ -24,7 +24,7 @@ fmt: ## Formats all code with go fmt
 	@go fmt ./...
 
 run: fmt ## Run the app
-	@go run ./cmd/banana-converter-go/main.go
+	@go run ./cmd/banana-converter-go/main.go ./cmd/banana-converter-go/converter.go
 
 test-build: ## Tests whether the code compiles
 	@go build -o /dev/null ./...
@@ -66,7 +66,7 @@ out/report.json: out
 	@go test -count 1 ./... -coverprofile=out/cover.out --json | tee "$(@)"
 
 clean: ## Cleans up everything
-	@rm -rf bin out 
+	@rm -rf bin out
 
 docker: ## Builds docker image
 	docker buildx build -t $(DOCKER_REPO):$(DOCKER_TAG) .
